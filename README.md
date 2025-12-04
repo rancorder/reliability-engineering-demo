@@ -365,10 +365,9 @@ MIT License - 詳細は [LICENSE](LICENSE) を参照
 
 ## 📧 お問い合わせ
 
-**開発者**: [Your Name]  
-**GitHub**: [https://github.com/yourusername](https://github.com/yourusername)  
-**Email**: your.email@example.com  
-**LinkedIn**: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
+**開発者**: [RANCORDER]  
+**GitHub**: [https://github.com/rancorder](https://github.com/rancorder)  
+**Email**: xzengbu@gmail.com
 
 ---
 
@@ -395,4 +394,4 @@ GitHubでスターをいただけると嬉しいです!
 
 ---
 
-*最終更新: 2024年12月4日*
+*最終更新: 2025年12月4日*
