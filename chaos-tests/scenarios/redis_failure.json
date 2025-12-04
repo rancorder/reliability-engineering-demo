@@ -1,0 +1,135 @@
+{
+  "title": "Redis Sudden Death and Recovery",
+  "description": "Test system resilience when Redis suddenly dies and recovers",
+  "tags": ["redis", "failure", "recovery"],
+  "configuration": {
+    "app_url": {
+      "type": "env",
+      "key": "APP_URL",
+      "default": "http://app:8000"
+    }
+  },
+  "steady-state-hypothesis": {
+    "title": "Application is healthy",
+    "probes": [
+      {
+        "type": "probe",
+        "name": "app-responds-to-requests",
+        "tolerance": 200,
+        "provider": {
+          "type": "http",
+          "url": "${app_url}/health",
+          "timeout": 5
+        }
+      },
+      {
+        "type": "probe",
+        "name": "redis-is-available",
+        "tolerance": true,
+        "provider": {
+          "type": "python",
+          "module": "chaoslib.providers.http",
+          "func": "call_http_endpoint",
+          "arguments": {
+            "url": "${app_url}/health"
+          }
+        }
+      }
+    ]
+  },
+  "method": [
+    {
+      "type": "action",
+      "name": "kill-redis-container",
+      "provider": {
+        "type": "process",
+        "path": "docker",
+        "arguments": ["stop", "reliability-engineering-demo-redis-1"]
+      }
+    },
+    {
+      "type": "probe",
+      "name": "verify-app-handles-redis-failure",
+      "tolerance": [200, 503],
+      "provider": {
+        "type": "http",
+        "url": "${app_url}/health",
+        "timeout": 5
+      }
+    },
+    {
+      "type": "action",
+      "name": "wait-for-impact",
+      "provider": {
+        "type": "python",
+        "module": "time",
+        "func": "sleep",
+        "arguments": [3]
+      }
+    },
+    {
+      "type": "probe",
+      "name": "verify-app-still-responds",
+      "tolerance": [200, 503],
+      "provider": {
+        "type": "http",
+        "url": "${app_url}/",
+        "timeout": 5
+      }
+    },
+    {
+      "type": "action",
+      "name": "restart-redis-container",
+      "provider": {
+        "type": "process",
+        "path": "docker",
+        "arguments": ["start", "reliability-engineering-demo-redis-1"]
+      }
+    },
+    {
+      "type": "action",
+      "name": "wait-for-redis-recovery",
+      "provider": {
+        "type": "python",
+        "module": "time",
+        "func": "sleep",
+        "arguments": [5]
+      }
+    },
+    {
+      "type": "probe",
+      "name": "verify-full-recovery",
+      "tolerance": 200,
+      "provider": {
+        "type": "http",
+        "url": "${app_url}/health",
+        "timeout": 5
+      }
+    },
+    {
+      "type": "probe",
+      "name": "verify-redis-operations-work",
+      "tolerance": 200,
+      "provider": {
+        "type": "http",
+        "url": "${app_url}/api/redis/test_recovery",
+        "method": "POST",
+        "timeout": 5,
+        "arguments": {
+          "value": "recovery_test"
+        }
+      }
+    }
+  ],
+  "rollbacks": [
+    {
+      "type": "action",
+      "name": "ensure-redis-is-running",
+      "provider": {
+        "type": "process",
+        "path": "docker",
+        "arguments": ["start", "reliability-engineering-demo-redis-1"]
+      }
+    }
+  ]
+}

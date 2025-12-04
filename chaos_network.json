@@ -1,0 +1,148 @@
+{
+  "title": "Network Partition and Auto-Reconnection",
+  "description": "Simulate network partition and verify automatic reconnection",
+  "tags": ["network", "partition", "reconnection"],
+  "configuration": {
+    "app_url": {
+      "type": "env",
+      "key": "APP_URL",
+      "default": "http://app:8000"
+    },
+    "toxiproxy_url": {
+      "type": "env",
+      "key": "TOXIPROXY_URL",
+      "default": "http://toxiproxy:8474"
+    }
+  },
+  "steady-state-hypothesis": {
+    "title": "Network is stable",
+    "probes": [
+      {
+        "type": "probe",
+        "name": "app-is-reachable",
+        "tolerance": 200,
+        "provider": {
+          "type": "http",
+          "url": "${app_url}/health",
+          "timeout": 3
+        }
+      }
+    ]
+  },
+  "method": [
+    {
+      "type": "action",
+      "name": "create-redis-proxy",
+      "provider": {
+        "type": "http",
+        "url": "${toxiproxy_url}/proxies",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "arguments": {
+          "name": "redis_proxy",
+          "listen": "0.0.0.0:6380",
+          "upstream": "redis:6379",
+          "enabled": true
+        }
+      },
+      "pauses": {
+        "after": 2
+      }
+    },
+    {
+      "type": "action",
+      "name": "cause-network-partition",
+      "provider": {
+        "type": "http",
+        "url": "${toxiproxy_url}/proxies/redis_proxy/toxics",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "arguments": {
+          "name": "network_timeout",
+          "type": "timeout",
+          "attributes": {
+            "timeout": 0
+          }
+        }
+      }
+    },
+    {
+      "type": "probe",
+      "name": "verify-redis-unavailable",
+      "tolerance": [500, 503],
+      "provider": {
+        "type": "http",
+        "url": "${app_url}/api/redis/partition_test",
+        "timeout": 5
+      }
+    },
+    {
+      "type": "action",
+      "name": "maintain-partition",
+      "provider": {
+        "type": "python",
+        "module": "time",
+        "func": "sleep",
+        "arguments": [5]
+      }
+    },
+    {
+      "type": "action",
+      "name": "heal-network-partition",
+      "provider": {
+        "type": "http",
+        "url": "${toxiproxy_url}/proxies/redis_proxy/toxics/network_timeout",
+        "method": "DELETE"
+      }
+    },
+    {
+      "type": "action",
+      "name": "wait-for-reconnection",
+      "provider": {
+        "type": "python",
+        "module": "time",
+        "func": "sleep",
+        "arguments": [3]
+      }
+    },
+    {
+      "type": "probe",
+      "name": "verify-redis-reconnected",
+      "tolerance": 200,
+      "provider": {
+        "type": "http",
+        "url": "${app_url}/health",
+        "timeout": 5
+      }
+    },
+    {
+      "type": "probe",
+      "name": "verify-operations-resumed",
+      "tolerance": 200,
+      "provider": {
+        "type": "http",
+        "url": "${app_url}/api/redis/recovery_verification",
+        "method": "POST",
+        "arguments": {
+          "value": "network_recovered"
+        },
+        "timeout": 5
+      }
+    }
+  ],
+  "rollbacks": [
+    {
+      "type": "action",
+      "name": "cleanup-redis-proxy",
+      "provider": {
+        "type": "http",
+        "url": "${toxiproxy_url}/proxies/redis_proxy",
+        "method": "DELETE"
+      }
+    }
+  ]
+}

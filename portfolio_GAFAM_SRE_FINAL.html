@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rancorder | 業務効率化の楽しさに目覚めたHybrid Engineer</title>
+    <meta name="description" content="営業17年。業務自動化の楽しさにのめり込み、エンジニアへ転身。Python/JavaScript/Docker - 短期間でマルチスキル習得。月72万円コスト削減実績。">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary: #00F5FF;
+            --secondary: #FF006E;
+            --accent: #FFBE0B;
+            --base: #0A0E27;
+            --surface: #1A1F3A;
+        }
+        
+        body { font-family: 'Inter', sans-serif; background: var(--base); overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; }
+        
+        /* Cyber Grid Animation */
+        .cyber-grid {
+            background: linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px),
+                        linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridScroll 20s linear infinite;
+        }
+        
+        @keyframes gridScroll {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+        
+        /* Glassmorphism */
+        .glass {
+            background: rgba(26, 31, 58, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 245, 255, 0.1);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0,245,255,0.5), 0 0 20px rgba(0,245,255,0.5);
+        }
+        
+        .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .hover-lift:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 40px rgba(0, 245, 255, 0.3); }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, rgba(0,245,255,0.2), rgba(255,0,110,0.2));
+            border: 1px solid var(--primary);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .float-animation { animation: float 6s ease-in-out infinite; }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0,245,255,0.5); border-color: var(--primary); }
+            50% { box-shadow: 0 0 40px rgba(0,245,255,0.5), 0 0 60px rgba(0,245,255,0.5); border-color: var(--secondary); }
+        }
+        .pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
+        
+        .btn-cyber {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 1rem 2rem;
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-cyber:hover {
+            background: var(--primary);
+            color: var(--base);
+            box-shadow: 0 0 30px rgba(0,245,255,0.5);
+            transform: translateY(-2px);
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(0,245,255,0.05), rgba(255,0,110,0.05));
+            border: 1px solid var(--primary);
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+        }
+        
+        .skill-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            margin: 0.25rem;
+            white-space: nowrap;
+        }
+        
+        .featured-project {
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 30px rgba(255, 190, 11, 0.3);
+        }
+        
+        .new-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+        
+        .project-card {
+            background: rgba(26, 31, 58, 0.8);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-card-content {
+            flex: 1;
+        }
+        
+        .why-matters {
+            background: linear-gradient(135deg, rgba(255,190,11,0.1), rgba(255,0,110,0.1));
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        /* 🆕 スキル一覧セクション用スタイル */
+        .skill-category {
+            background: rgba(26, 31, 58, 0.6);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .skill-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            margin: 0.25rem;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-item:hover {
+            background: rgba(0, 245, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 245, 255, 0.3);
+        }
+        
+        .skill-level {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="text-white selection:bg-cyan-500 selection:text-black">
+    
+    <div class="fixed inset-0 cyber-grid pointer-events-none z-0"></div>
+    
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex items-center justify-center overflow-hidden py-20">
+            <div class="absolute inset-0 opacity-30 pointer-events-none">
+                <div class="absolute top-1/4 left-1/4 w-64 h-64 md:w-96 md:h-96 bg-cyan-500 rounded-full filter blur-3xl animate-pulse" style="animation-duration: 4s;"></div>
+                <div class="absolute bottom-1/4 right-1/4 w-64 h-64 md:w-96 md:h-96 bg-pink-500 rounded-full filter blur-3xl animate-pulse" style="animation-duration: 6s; animation-delay: 1s;"></div>
+            </div>
+            
+            <div class="container mx-auto px-4 md:px-6 relative z-10 text-center">
+                <div class="badge mb-8 pulse-glow inline-block text-xs md:text-sm">
+                    💡 業務効率化の楽しさに目覚めた | 🚀 短期間マルチスキル習得 | 💰 月72万円削減実績
+                </div>
+                
+                <h1 class="text-5xl sm:text-6xl md:text-8xl font-black mb-8 leading-tight neon-text float-animation tracking-wider">
+                    rancorder
+                </h1>
+                
+                <h2 class="text-2xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-pink-500 to-yellow-400 bg-clip-text text-transparent leading-snug">
+                    営業17年で学んだビジネス課題を<br class="hidden md:inline">
+                    Pythonで解決する Hybrid Engineer
+                </h2>
+                
+                <p class="text-base md:text-xl mb-4 text-cyan-300 max-w-3xl mx-auto leading-relaxed px-2">
+                    「また手動作業か...」から始まった業務自動化。<br>
+                    <strong class="text-yellow-400">動いた瞬間の楽しさにのめり込み</strong>、<br>
+                    「自分のやりたいことはこれだ！」とエンジニアへ転身。
+                </p>
+                
+                <p class="text-sm md:text-lg mb-12 opacity-75 max-w-2xl mx-auto px-2">
+                    技術とビジネスの両方を語れる唯一無二のポジション。<br>
+                    Python/JavaScript/Docker - <strong>短期間でマルチスキルをキャッチアップ</strong>。
+                </p>
+                
+                <div class="flex flex-col md:flex-row justify-center gap-4 mb-16 w-full md:w-auto px-8 md:px-0">
+                    <a href="#skills" class="btn-cyber w-full md:w-auto">💻 Skills</a>
+                    <a href="#portfolio" class="btn-cyber w-full md:w-auto" style="border-color: #FF006E; color: #FF006E;">🏆 Portfolio</a>
+                    <a href="#contact" class="btn-cyber w-full md:w-auto" style="border-color: #FFBE0B; color: #FFBE0B;">📧 Contact</a>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-4xl mx-auto">
+                    <div class="stat-card p-3 md:p-4 hover-lift flex flex-col justify-center items-center">
+                        <div class="text-2xl sm:text-3xl md:text-4xl font-black mb-1 text-cyan-400 whitespace-nowrap">
+                            99.9<span class="text-lg md:text-2xl">%</span>
+                        </div>
+                        <div class="opacity-80 text-[10px] sm:text-xs leading-tight">稼働率<br>(2024年実績)</div>
+                    </div>
+                    
+                    <div class="stat-card p-3 md:p-4 hover-lift flex flex-col justify-center items-center">
+                        <div class="text-2xl sm:text-3xl md:text-4xl font-black mb-1 text-pink-400 whitespace-nowrap">
+                            ¥72<span class="text-lg md:text-2xl">万</span>
+                        </div>
+                        <div class="opacity-80 text-[10px] sm:text-xs leading-tight">月間削減<br>(人件費3名分)</div>
+                    </div>
+                    
+                    <div class="stat-card p-3 md:p-4 hover-lift flex flex-col justify-center items-center">
+                        <div class="text-2xl sm:text-3xl md:text-4xl font-black mb-1 text-yellow-400">
+                            43
+                        </div>
+                        <div class="opacity-80 text-[10px] sm:text-xs leading-tight">サイト数<br>(24/7監視中)</div>
+                    </div>
+                    
+                    <div class="stat-card p-3 md:p-4 hover-lift flex flex-col justify-center items-center">
+                        <div class="text-2xl sm:text-3xl md:text-4xl font-black mb-1 text-green-400">
+                            5x
+                        </div>
+                        <div class="opacity-80 text-[10px] sm:text-xs leading-tight">開発速度<br>(AI協業)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
+                <i class="fas fa-chevron-down text-3xl text-cyan-400 opacity-50"></i>
+            </div>
+        </section>
+        
+        <!-- 🆕 スキル一覧セクション -->
+        <section id="skills" class="py-20 relative bg-gradient-to-b from-transparent via-cyan-900 to-transparent">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-4xl md:text-5xl font-black mb-4 neon-text">💻 Technical Skills</h2>
+                        <p class="text-lg md:text-xl opacity-75 mb-2">実務で使用・本番運用経験のある技術</p>
+                        <p class="text-sm opacity-60">※ 全て実案件での使用実績あり</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- 言語 -->
+                        <div class="skill-category">
+                            <h3 class="text-xl font-bold mb-4 text-cyan-400 flex items-center gap-2">
+                                <i class="fas fa-code"></i>
+                                プログラミング言語
+                            </h3>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="skill-item">
+                                    <i class="fab fa-python text-blue-400"></i>
+                                    <span>Python</span>
+                                    <span class="skill-level">(主力)</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fab fa-js text-yellow-400"></i>
+                                    <span>JavaScript</span>
+                                    <span class="skill-level">(実務)</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-terminal text-green-400"></i>
+                                    <span>Bash</span>
+                                    <span class="skill-level">(運用)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- フレームワーク -->
+                        <div class="skill-category">
+                            <h3 class="text-xl font-bold mb-4 text-cyan-400 flex items-center gap-2">
+                                <i class="fas fa-layer-group"></i>
+                                フレームワーク
+                            </h3>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="skill-item">
+                                    <i class="fas fa-bolt text-yellow-400"></i>
+                                    <span>FastAPI</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fab fa-react text-blue-400"></i>
+                                    <span>React</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fab fa-node-js text-green-400"></i>
+                                    <span>Node.js</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- テスト・品質管理 -->
+                        <div class="skill-category">
+                            <h3 class="text-xl font-bold mb-4 text-cyan-400 flex items-center gap-2">
+                                <i class="fas fa-check-circle"></i>
+                                テスト・品質管理 <span class="new-badge ml-2">NEW</span>
+                            </h3>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="skill-item">
+                                    <i class="fas fa-vial text-green-400"></i>
+                                    <span>pytest</span>
+                                    <span class="skill-level">(実装済み)</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-robot text-purple-400"></i>
+                                    <span>Cypress</span>
+                                    <span class="skill-level">(E2E)</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-chart-bar text-cyan-400"></i>
+                                    <span>pytest-cov</span>
+                                    <span class="skill-level">(カバレッジ)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- インフラ・DevOps -->
+                        <div class="skill-category">
+                            <h3 class="text-xl font-bold mb-4 text-cyan-400 flex items-center gap-2">
+                                <i class="fas fa-server"></i>
+                                インフラ・DevOps
+                            </h3>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="skill-item">
+                                    <i class="fab fa-docker text-blue-400"></i>
+                                    <span>Docker</span>
+                                    <span class="skill-level">(本番運用)</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fab fa-github text-gray-400"></i>
+                                    <span>GitHub Actions</span>
+                                    <span class="skill-level">(CI/CD)</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-cloud text-orange-400"></i>
+                                    <span>VPS</span>
+                                    <span class="skill-level">(運用中)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- データベース -->
+                        <div class="skill-category">
+                            <h3 class="text-xl font-bold mb-4 text-cyan-400 flex items-center gap-2">
+                                <i class="fas fa-database"></i>
+                                データベース
+                            </h3>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="skill-item">
+                                    <i class="fas fa-database text-blue-400"></i>
+                                    <span>MySQL</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-database text-cyan-400"></i>
+                                    <span>SQLite</span>
+                                    <span class="skill-level">(WALモード)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- AI・機械学習 -->
+                        <div class="skill-category">
+                            <h3 class="text-xl font-bold mb-4 text-cyan-400 flex items-center gap-2">
+                                <i class="fas fa-brain"></i>
+                                AI・機械学習
+                            </h3>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="skill-item">
+                                    <i class="fas fa-robot text-purple-400"></i>
+                                    <span>Claude AI</span>
+                                    <span class="skill-level">(協業開発)</span>
+                                </div>
+                                <div class="skill-item">
+                                    <i class="fas fa-microchip text-green-400"></i>
+                                    <span>Playwright</span>
+                                    <span class="skill-level">(スクレイピング)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 学習スタイル -->
+                    <div class="glass p-6 md:p-8 rounded-xl mt-8">
+                        <h3 class="text-2xl font-bold mb-4 text-yellow-400 text-center">⚡ 短期間キャッチアップ実績</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-cyan-400 mb-2">3日</div>
+                                <div class="opacity-75">pytest実装<br>(30テスト完成)</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-pink-400 mb-2">1週間</div>
+                                <div class="opacity-75">Docker化<br>(本番デプロイ)</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-yellow-400 mb-2">2週間</div>
+                                <div class="opacity-75">React習得<br>(SPA構築)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="py-20 relative">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-4xl md:text-5xl font-black mb-4 neon-text">🏆 Portfolio</h2>
+                        <p class="text-lg md:text-xl opacity-75 mb-4">実案件 × 本番運用 × ビジネス価値</p>
+                        <p class="text-sm opacity-60">採用担当の方へ: まず⭐マークの2つをご覧ください</p>
+                    </div>
+                    
+                    <!-- Flagship Projects -->
+                    <div class="mb-16">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-6 text-center flex flex-col md:flex-row items-center justify-center gap-2">
+                            <span class="text-yellow-400">⭐ Flagship Projects</span>
+                            <span class="text-sm opacity-75 md:ml-4">- 最も見ていただきたい実績</span>
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Reservation System PoC -->
+                            <div class="project-card featured-project p-6 hover-lift">
+                                <div class="project-card-content">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <h4 class="text-xl md:text-2xl font-bold text-cyan-400">🔒 Reservation System PoC</h4>
+                                        <span class="badge" style="font-size: 0.7rem;">2025</span>
+                                    </div>
+                                    <p class="text-sm opacity-90 mb-4">エンタープライズグレード予約システム</p>
+                                    
+                                    <div class="why-matters mb-4">
+                                        <p class="font-bold text-yellow-400 mb-1">💡 なぜこれが重要か</p>
+                                        <p class="text-sm opacity-90">
+                                            <strong>1時間で実装</strong>したフル機能予約システム。<br>
+                                            Redis + PostgreSQL + FastAPI。<br>
+                                            在庫管理・ダブルブッキング防止・自動ロック解除など本番レベルの実装。
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-2 gap-2 mb-4">
+                                        <div class="text-center bg-black bg-opacity-30 p-2 rounded">
+                                            <div class="text-xl font-bold text-green-400">1時間</div>
+                                            <div class="text-xs opacity-75">実装時間</div>
+                                        </div>
+                                        <div class="text-center bg-black bg-opacity-30 p-2 rounded">
+                                            <div class="text-xl font-bold text-blue-400">本番級</div>
+                                            <div class="text-xs opacity-75">品質</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="skill-badge text-xs">FastAPI</span>
+                                        <span class="skill-badge text-xs">Redis</span>
+                                        <span class="skill-badge text-xs">PostgreSQL</span>
+                                    </div>
+                                </div>
+                                <a href="https://github.com/rancorder/reservation-system-poc" target="_blank" class="text-cyan-400 hover:text-cyan-300 text-sm mt-4 block">
+                                    <i class="fab fa-github mr-1"></i>View on GitHub →
+                                </a>
+                            </div>
+                            
+                            <!-- BizSpec Translator -->
+                            <div class="project-card featured-project p-6 hover-lift">
+                                <div class="project-card-content">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <h4 class="text-xl md:text-2xl font-bold text-cyan-400">🤖 BizSpec Translator</h4>
+                                        <span class="badge" style="font-size: 0.7rem;">2025</span>
+                                    </div>
+                                    <p class="text-sm opacity-90 mb-4">AI技術仕様変換ツール</p>
+                                    
+                                    <div class="why-matters mb-4">
+                                        <p class="font-bold text-yellow-400 mb-1">💡 なぜこれが重要か</p>
+                                        <p class="text-sm opacity-90">
+                                            <strong>営業17年の知見 × Claude AI</strong>の融合。<br>
+                                            「言語の壁」という本質的課題を30秒で解決。<br>
+                                            要件定義工数66%削減(9日→3日)を実現。
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-2 gap-2 mb-4">
+                                        <div class="text-center bg-black bg-opacity-30 p-2 rounded">
+                                            <div class="text-xl font-bold text-green-400">66%</div>
+                                            <div class="text-xs opacity-75">時間削減</div>
+                                        </div>
+                                        <div class="text-center bg-black bg-opacity-30 p-2 rounded">
+                                            <div class="text-xl font-bold text-blue-400">30秒</div>
+                                            <div class="text-xs opacity-75">変換速度</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="skill-badge text-xs">FastAPI</span>
+                                        <span class="skill-badge text-xs">React</span>
+                                        <span class="skill-badge text-xs">Claude AI</span>
+                                    </div>
+                                </div>
+                                <a href="https://github.com/rancorder/Biz_Spec_Translator" target="_blank" class="text-cyan-400 hover:text-cyan-300 text-sm mt-4 block">
+                                    <i class="fab fa-github mr-1"></i>View on GitHub →
+                                </a>
+                            </div>
+                            
+                            <!-- Master Controller -->
+                            <div class="project-card featured-project p-6 hover-lift">
+                                <div class="project-card-content">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <h4 class="text-xl md:text-2xl font-bold text-cyan-400">🎯 Master Controller</h4>
+                                        <span class="badge" style="font-size: 0.7rem;">2024</span>
+                                    </div>
+                                    <p class="text-sm opacity-90 mb-4">43サイト統合制御・監視システム</p>
+                                    
+                                    <div class="why-matters mb-4">
+                                        <p class="font-bold text-yellow-400 mb-1">💡 なぜこれが重要か</p>
+                                        <p class="text-sm opacity-90">
+                                            <strong>月72万円削減</strong>(人件費3名分)を達成した中核エンジン。<br>
+                                            複数サイトのスクレイピングを統合管理し、<br>
+                                            <strong>稼働率99.9%</strong>の安定運用を実現。
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-2 gap-2 mb-4">
+                                        <div class="text-center bg-black bg-opacity-30 p-2 rounded">
+                                            <div class="text-xl font-bold text-green-400">¥72万</div>
+                                            <div class="text-xs opacity-75">月間削減</div>
+                                        </div>
+                                        <div class="text-center bg-black bg-opacity-30 p-2 rounded">
+                                            <div class="text-xl font-bold text-blue-400">99.9%</div>
+                                            <div class="text-xs opacity-75">稼働率</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="skill-badge text-xs">Python</span>
+                                        <span class="skill-badge text-xs">Circuit Breaker</span>
+                                        <span class="skill-badge text-xs">SQLite WAL</span>
+                                    </div>
+                                </div>
+                                <a href="https://github.com/rancorder/master_controller" target="_blank" class="text-cyan-400 hover:text-cyan-300 text-sm mt-4 block">
+                                    <i class="fab fa-github mr-1"></i>View on GitHub →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Supporting Projects -->
+                    <div class="mb-12">
+                        <h3 class="text-xl md:text-2xl font-bold mb-6 text-center text-pink-400 flex flex-col md:flex-row items-center justify-center gap-2">
+                            <span>💎 Supporting Projects</span>
+                            <span class="text-sm opacity-75 md:ml-4">- 技術幅と学習力の証明</span>
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                            <!-- 🆕 pytest実装プロジェクト -->
+                            <div class="project-card p-6 hover-lift" style="border: 2px solid #10b981;">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="text-lg font-bold text-cyan-400">🧪 pytest実装</h4>
+                                    <span class="new-badge">NEW</span>
+                                </div>
+                                <p class="text-xs opacity-75 mb-2">本番システムへのテスト実装</p>
+                                <p class="text-sm opacity-90 mb-3 flex-1">
+                                    <strong class="text-green-400">品質保証の実証:</strong><br>
+                                    1,400行の本番コードに30個のテストを実装。カバレッジ26%達成。エンタープライズグレードの品質管理を実践。
+                                </p>
+                                <div class="flex flex-wrap gap-1 mb-2">
+                                    <span class="skill-badge text-xs">pytest</span>
+                                    <span class="skill-badge text-xs">pytest-cov</span>
+                                    <span class="skill-badge text-xs">Type Hints</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2 mb-3 text-center text-xs">
+                                    <div class="bg-black bg-opacity-30 p-2 rounded">
+                                        <div class="font-bold text-green-400">30</div>
+                                        <div class="opacity-75">テスト数</div>
+                                    </div>
+                                    <div class="bg-black bg-opacity-30 p-2 rounded">
+                                        <div class="font-bold text-blue-400">26%</div>
+                                        <div class="opacity-75">カバレッジ</div>
+                                    </div>
+                                </div>
+                                <a href="https://github.com/rancorder/pytest" target="_blank" class="text-cyan-400 hover:text-cyan-300 text-xs mt-auto">
+                                    GitHub →
+                                </a>
+                            </div>
+                            
+                            <!-- 2ndstreet Monitor -->
+                            <div class="project-card p-6 hover-lift">
+                                <h4 class="text-lg font-bold text-cyan-400 mb-2">🐳 2ndstreet Monitor</h4>
+                                <p class="text-xs opacity-75 mb-2">JavaScript + Docker実装</p>
+                                <p class="text-sm opacity-90 mb-3 flex-1">
+                                    <strong class="text-yellow-400">学習力の証明:</strong><br>
+                                    JS/Docker/Cron - 短期間で習得し本番運用。環境構築コストを劇的に低減。
+                                </p>
+                                <div class="flex flex-wrap gap-1 mb-2">
+                                    <span class="skill-badge text-xs">Node.js</span>
+                                    <span class="skill-badge text-xs">Docker</span>
+                                    <span class="skill-badge text-xs">Playwright</span>
+                                </div>
+                                <a href="https://github.com/rancorder/2ndstreet-monitor" target="_blank" class="text-cyan-400 hover:text-cyan-300 text-xs mt-auto">
+                                    GitHub →
+                                </a>
+                            </div>
+                            
+                            <!-- Secure Zipper Pro -->
+                            <div class="project-card p-6 hover-lift">
+                                <h4 class="text-lg font-bold text-cyan-400 mb-2">🔒 Secure Zipper Pro</h4>
+                                <p class="text-xs opacity-75 mb-2">AES-256暗号化ツール</p>
+                                <p class="text-sm opacity-90 mb-3 flex-1">
+                                    <strong class="text-yellow-400">品質へのこだわり:</strong><br>
+                                    セキュリティポリシー準拠。型ヒント100%準拠でOSSとして公開。
+                                </p>
+                                <div class="flex flex-wrap gap-1 mb-2">
+                                    <span class="skill-badge text-xs">AES-256</span>
+                                    <span class="skill-badge text-xs">Type Hints</span>
+                                </div>
+                                <a href="https://github.com/rancorder/secure_zipper_pro" target="_blank" class="text-cyan-400 hover:text-cyan-300 text-xs mt-auto">
+                                    GitHub →
+                                </a>
+                            </div>
+                            
+                            <!-- Cypress E2E Template -->
+                            <div class="project-card p-6 hover-lift">
+                                <h4 class="text-lg font-bold text-cyan-400 mb-2">⚡ Cypress E2E Template</h4>
+                                <p class="text-xs opacity-75 mb-2">CI/CD完備・即時実行基盤</p>
+                                <p class="text-sm opacity-90 mb-3 flex-1">
+                                    <strong class="text-yellow-400">品質保証の自動化:</strong><br>
+                                    セットアップ5分。GitHub Actions連携済みで、コミット毎に品質を担保する環境を即構築。
+                                </p>
+                                <div class="flex flex-wrap gap-1 mb-2">
+                                    <span class="skill-badge text-xs">Cypress</span>
+                                    <span class="skill-badge text-xs">GitHub Actions</span>
+                                    <span class="skill-badge text-xs">Node.js</span>
+                                </div>
+                                <a href="https://github.com/rancorder/cypress-lambda-e2e" target="_blank" class="text-cyan-400 hover:text-cyan-300 text-xs mt-auto">
+                                    GitHub →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Frontend/HTML Coding Projects -->
+                    <div class="mb-12">
+                        <h3 class="text-xl md:text-2xl font-bold mb-6 text-center text-purple-400 flex flex-col md:flex-row items-center justify-center gap-2">
+                            <span>🎨 Frontend/HTML Coding</span>
+                            <span class="text-sm opacity-75 md:ml-4">- モダンWeb技術の実装力</span>
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                            <!-- このポートフォリオサイト自体 -->
+                            <div class="project-card p-6 hover-lift" style="border: 2px solid #a855f7;">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="text-lg font-bold text-cyan-400">✨ このポートフォリオサイト</h4>
+                                    <span class="new-badge">NOW</span>
+                                </div>
+                                <p class="text-xs opacity-75 mb-2">GAFAM SRE級エフェクトシステム</p>
+                                <p class="text-sm opacity-90 mb-3 flex-1">
+                                    <strong class="text-purple-400">Production Ready設計:</strong><br>
+                                    Canvas API 80個パーティクル、3Dカードティルト、波紋エフェクト、マウストレイル。GPU加速・60fps保証・デバイス性能自動最適化。
+                                </p>
+                                <div class="flex flex-wrap gap-1 mb-2">
+                                    <span class="skill-badge text-xs">HTML5</span>
+                                    <span class="skill-badge text-xs">CSS3</span>
+                                    <span class="skill-badge text-xs">Vanilla JS</span>
+                                    <span class="skill-badge text-xs">Canvas API</span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2 mb-3 text-center text-xs">
+                                    <div class="bg-black bg-opacity-30 p-2 rounded">
+                                        <div class="font-bold text-green-400">60fps</div>
+                                        <div class="opacity-75">保証</div>
+                                    </div>
+                                    <div class="bg-black bg-opacity-30 p-2 rounded">
+                                        <div class="font-bold text-blue-400">GPU</div>
+                                        <div class="opacity-75">加速</div>
+                                    </div>
+                                    <div class="bg-black bg-opacity-30 p-2 rounded">
+                                        <div class="font-bold text-purple-400">WCAG</div>
+                                        <div class="opacity-75">準拠</div>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-yellow-400 mb-2">
+                                    👆 今見ているこのサイトがその証明
+                                </p>
+                            </div>
+                            
+                            <!-- Glassmorphism Design System -->
+                            <div class="project-card p-6 hover-lift">
+                                <h4 class="text-lg font-bold text-cyan-400 mb-2">🌈 Glassmorphism Design</h4>
+                                <p class="text-xs opacity-75 mb-2">モダンCSS実装</p>
+                                <p class="text-sm opacity-90 mb-3 flex-1">
+                                    <strong class="text-purple-400">最新CSS技術:</strong><br>
+                                    backdrop-filter、CSS Grid、Flexbox、CSS Custom Properties、CSS Animations、Gradient、Clamp()を駆使した次世代デザインシステム。
+                                </p>
+                                <div class="flex flex-wrap gap-1 mb-2">
+                                    <span class="skill-badge text-xs">backdrop-filter</span>
+                                    <span class="skill-badge text-xs">CSS Grid</span>
+                                    <span class="skill-badge text-xs">CSS Variables</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2 mb-3 text-center text-xs">
+                                    <div class="bg-black bg-opacity-30 p-2 rounded">
+                                        <div class="font-bold text-green-400">100%</div>
+                                        <div class="opacity-75">レスポンシブ</div>
+                                    </div>
+                                    <div class="bg-black bg-opacity-30 p-2 rounded">
+                                        <div class="font-bold text-blue-400">0</div>
+                                        <div class="opacity-75">画像依存</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Web Animations API -->
+                            <div class="project-card p-6 hover-lift">
+                                <h4 class="text-lg font-bold text-cyan-400 mb-2">🎬 Web Animations API実装</h4>
+                                <p class="text-xs opacity-75 mb-2">ネイティブアニメーション</p>
+                                <p class="text-sm opacity-90 mb-3 flex-1">
+                                    <strong class="text-purple-400">パフォーマンス重視:</strong><br>
+                                    requestAnimationFrame、Web Animations API、CSS Transform3Dを活用。外部ライブラリゼロで滑らかな60fpsアニメーション実装。
+                                </p>
+                                <div class="flex flex-wrap gap-1 mb-2">
+                                    <span class="skill-badge text-xs">Web Animations API</span>
+                                    <span class="skill-badge text-xs">RAF</span>
+                                    <span class="skill-badge text-xs">Transform3D</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2 mb-3 text-center text-xs">
+                                    <div class="bg-black bg-opacity-30 p-2 rounded">
+                                        <div class="font-bold text-green-400">7種</div>
+                                        <div class="opacity-75">エフェクト</div>
+                                    </div>
+                                    <div class="bg-black bg-opacity-30 p-2 rounded">
+                                        <div class="font-bold text-blue-400">0</div>
+                                        <div class="opacity-75">依存</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Responsive Design -->
+                            <div class="project-card p-6 hover-lift">
+                                <h4 class="text-lg font-bold text-cyan-400 mb-2">📱 完全レスポンシブ実装</h4>
+                                <p class="text-xs opacity-75 mb-2">モバイルファースト設計</p>
+                                <p class="text-sm opacity-90 mb-3 flex-1">
+                                    <strong class="text-purple-400">全デバイス対応:</strong><br>
+                                    モバイル・タブレット・デスクトップ。Fluid Typography (clamp)、CSS Grid auto-fit、Flexbox wrap。ブレイクポイント戦略的配置。
+                                </p>
+                                <div class="flex flex-wrap gap-1 mb-2">
+                                    <span class="skill-badge text-xs">Mobile First</span>
+                                    <span class="skill-badge text-xs">Fluid Typography</span>
+                                    <span class="skill-badge text-xs">Media Queries</span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2 mb-3 text-center text-xs">
+                                    <div class="bg-black bg-opacity-30 p-2 rounded">
+                                        <div class="font-bold text-green-400">📱</div>
+                                        <div class="opacity-75">Mobile</div>
+                                    </div>
+                                    <div class="bg-black bg-opacity-30 p-2 rounded">
+                                        <div class="font-bold text-blue-400">📱</div>
+                                        <div class="opacity-75">Tablet</div>
+                                    </div>
+                                    <div class="bg-black bg-opacity-30 p-2 rounded">
+                                        <div class="font-bold text-purple-400">🖥️</div>
+                                        <div class="opacity-75">Desktop</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- BizSpec Translator Frontend -->
+                            <div class="project-card p-6 hover-lift">
+                                <h4 class="text-lg font-bold text-cyan-400 mb-2">⚛️ React + TypeScript実装</h4>
+                                <p class="text-xs opacity-75 mb-2">BizSpec Translator フロントエンド</p>
+                                <p class="text-sm opacity-90 mb-3 flex-1">
+                                    <strong class="text-purple-400">モダンフロントエンド:</strong><br>
+                                    React 18、TypeScript、Tailwind CSS、shadcn/ui。型安全・コンポーネント設計・状態管理。エンタープライズグレードのフロントエンド構成。
+                                </p>
+                                <div class="flex flex-wrap gap-1 mb-2">
+                                    <span class="skill-badge text-xs">React</span>
+                                    <span class="skill-badge text-xs">TypeScript</span>
+                                    <span class="skill-badge text-xs">Tailwind</span>
+                                    <span class="skill-badge text-xs">shadcn/ui</span>
+                                </div>
+                                <a href="https://github.com/rancorder/Biz_Spec_Translator" target="_blank" class="text-cyan-400 hover:text-cyan-300 text-xs mt-auto">
+                                    GitHub →
+                                </a>
+                            </div>
+                            
+                            <!-- Accessibility Implementation -->
+                            <div class="project-card p-6 hover-lift">
+                                <h4 class="text-lg font-bold text-cyan-400 mb-2">♿ アクセシビリティ実装</h4>
+                                <p class="text-xs opacity-75 mb-2">WCAG 2.1 AA準拠</p>
+                                <p class="text-sm opacity-90 mb-3 flex-1">
+                                    <strong class="text-purple-400">誰もが使える設計:</strong><br>
+                                    ARIA属性完全実装、キーボード操作対応、スクリーンリーダー対応、prefers-reduced-motion、Skip Link、セマンティックHTML。
+                                </p>
+                                <div class="flex flex-wrap gap-1 mb-2">
+                                    <span class="skill-badge text-xs">ARIA</span>
+                                    <span class="skill-badge text-xs">Keyboard Nav</span>
+                                    <span class="skill-badge text-xs">Semantic HTML</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2 mb-3 text-center text-xs">
+                                    <div class="bg-black bg-opacity-30 p-2 rounded">
+                                        <div class="font-bold text-green-400">WCAG</div>
+                                        <div class="opacity-75">2.1 AA</div>
+                                    </div>
+                                    <div class="bg-black bg-opacity-30 p-2 rounded">
+                                        <div class="font-bold text-blue-400">100%</div>
+                                        <div class="opacity-75">準拠</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- その他の実績 -->
+                    <details class="glass p-6 rounded-xl">
+                        <summary class="cursor-pointer text-base md:text-lg font-bold text-gray-400 hover:text-cyan-400 transition select-none">
+                            📦 その他の実績を見る (Face Match, Stock Prophet, Audio Analysis等)
+                        </summary>
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="border border-gray-700 p-3 rounded">
+                                <h5 class="font-bold text-sm mb-1">👤 Face Match System</h5>
+                                <p class="text-xs opacity-75">画像処理AI - VTuber事務所向け</p>
+                            </div>
+                            <div class="border border-gray-700 p-3 rounded">
+                                <h5 class="font-bold text-sm mb-1">📈 Stock Prophet</h5>
+                                <p class="text-xs opacity-75">株価予測 - XGBoost実装</p>
+                            </div>
+                            <div class="border border-gray-700 p-3 rounded">
+                                <h5 class="font-bold text-sm mb-1">🎙️ Audio Analysis</h5>
+                                <p class="text-xs opacity-75">音声解析 - Whisper/BERT統合</p>
+                            </div>
+                            <div class="border border-gray-700 p-3 rounded">
+                                <h5 class="font-bold text-sm mb-1">📦 EXE Build Script</h5>
+                                <p class="text-xs opacity-75">Playwright完全内包EXE化</p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+        
+        <!-- リアルタイム監視ダッシュボード -->
+        <section class="py-20 relative bg-gradient-to-b from-transparent via-cyan-900 to-transparent">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <div class="inline-block mb-4">
+                            <span class="new-badge">LIVE DEMO</span>
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-black mb-4 neon-text">🔍 リアルタイム監視ダッシュボード</h2>
+                        <p class="text-base md:text-lg opacity-75">43サイト24時間365日監視中 - FastAPI + SSE実装</p>
+                    </div>
+                    
+                    <div class="glass p-6 md:p-8 rounded-xl featured-project">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                            <div class="stat-card p-4 text-center">
+                                <div class="text-3xl font-black text-cyan-400">43</div>
+                                <div class="text-sm opacity-75 mt-1">監視サイト数</div>
+                            </div>
+                            <div class="stat-card p-4 text-center">
+                                <div class="text-3xl font-black text-green-400">99.9%</div>
+                                <div class="text-sm opacity-75 mt-1">2024年稼働率</div>
+                            </div>
+                            <div class="stat-card p-4 text-center">
+                                <div class="text-3xl font-black text-yellow-400">24/7</div>
+                                <div class="text-sm opacity-75 mt-1">無停止運用</div>
+                            </div>
+                        </div>
+                        
+                        <div class="why-matters mb-6">
+                            <h3 class="font-bold mb-2 text-yellow-400">💡 なぜこれが重要か？</h3>
+                            <p class="text-sm opacity-90">
+                                <strong>本番システムの実運用経験:</strong> VPS上で43サイトを並列スクレイピング、リアルタイム新商品検知、
+                                FastAPI+SSEによるログストリーミング。インフラ・バックエンド・フロントエンドを統合した実践力の証明。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-black bg-opacity-50 rounded-lg overflow-hidden border-2 border-cyan-400 pulse-glow">
+                            <div class="bg-gradient-to-r from-cyan-900 to-purple-900 px-4 py-2 flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                                    <span class="text-sm font-bold">Live Production System</span>
+                                </div>
+                                <a href="http://162.43.74.94:8000/" target="_blank" class="text-xs text-cyan-400 hover:text-cyan-300">
+                                    全画面で開く →
+                                </a>
+                            </div>
+                            <iframe 
+                                src="http://162.43.74.94:8000/" 
+                                class="w-full h-[600px] border-0"
+                                style="background: #0a0e27;"
+                            ></iframe>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                            <div>
+                                <h4 class="font-bold mb-2 text-cyan-400">🛠️ 技術スタック</h4>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="skill-badge">Python</span>
+                                    <span class="skill-badge">FastAPI</span>
+                                    <span class="skill-badge">SSE</span>
+                                    <span class="skill-badge">Playwright</span>
+                                    <span class="skill-badge">MySQL</span>
+                                    <span class="skill-badge">Docker</span>
+                                    <span class="skill-badge">VPS</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-2 text-pink-400">⚡ 実装ポイント</h4>
+                                <ul class="text-sm space-y-1 opacity-90">
+                                    <li>• 並列処理で効率的なデータ収集</li>
+                                    <li>• SSEによるリアルタイムログ配信</li>
+                                    <li>• 新商品検知の即時通知</li>
+                                    <li>• レスポンシブUI設計</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 1コマンドデプロイ対応 -->
+        <section class="py-20 relative bg-gradient-to-b from-transparent via-purple-900 to-transparent">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-black mb-4 neon-text">⚡ 1コマンドデプロイ対応</h2>
+                        <p class="text-base md:text-lg opacity-75">「コード作るのは簡単、セットアップが面倒」を解決</p>
+                    </div>
+                    
+                    <div class="glass p-6 md:p-8 rounded-xl">
+                        <h3 class="text-xl font-bold mb-4 text-cyan-400">🐳 Docker化で環境構築を簡易化</h3>
+                        <div class="bg-black bg-opacity-50 p-4 rounded-lg mb-6 overflow-x-auto">
+                            <code class="text-green-400 text-sm whitespace-pre"># 環境構築が面倒？これだけでOK
+$ git clone https://github.com/rancorder/2ndstreet-monitor
+$ cd 2ndstreet-monitor
+$ docker-compose up -d
+
+<span class="text-cyan-400"># → 完了！30秒で起動</span></code>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-bold mb-2 text-pink-400">✅ 私が実践していること</h4>
+                                <ul class="text-sm space-y-1 opacity-90">
+                                    <li>• Docker Compose一発起動</li>
+                                    <li>• .env.exampleで設定テンプレート提供</li>
+                                    <li>• READMEに詳細な手順記載</li>
+                                    <li>• 依存関係の自動解決</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-2 text-yellow-400">🎯 開発者体験へのこだわり</h4>
+                                <ul class="text-sm space-y-1 opacity-90">
+                                    <li>• クリーンなディレクトリ構造</li>
+                                    <li>• 型ヒント100%（mypy strict合格）</li>
+                                    <li>• Docstring完備</li>
+                                    <li>• エラーメッセージを分かりやすく</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 relative">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-4xl md:text-5xl font-black mb-6 neon-text">📧 Contact</h2>
+                    <p class="text-lg md:text-xl mb-12 opacity-90">
+                        カジュアル面談でお話しできれば幸いです。<br>
+                        「楽しさにのめり込んだエンジニア」の話を聞いてください。
+                    </p>
+                    
+                    <div class="flex flex-col md:flex-row justify-center gap-6 mb-12 w-full md:w-auto px-8 md:px-0">
+                        <a href="https://github.com/rancorder" target="_blank" class="btn-cyber w-full md:w-auto">
+                            <i class="fab fa-github mr-2"></i>GitHub
+                        </a>
+                        <a href="/cdn-cgi/l/email-protection#60030f0e14010314200518010d100c054e030f0d" class="btn-cyber w-full md:w-auto" style="border-color: #FF006E; color: #FF006E;">
+                            <i class="fas fa-envelope mr-2"></i>Email
+                        </a>
+                    </div>
+                    
+                    <div class="glass p-6 md:p-8 rounded-xl text-left" style="border: 2px solid var(--primary);">
+                        <h3 class="text-xl md:text-2xl font-bold mb-6 text-cyan-400 text-center md:text-left">🔥 Currently</h3>
+                        <div class="space-y-3 opacity-90 text-sm md:text-base">
+                            <p>🧪 <strong>NEW:</strong> pytest実装完了 - 本番システムで30テスト実装</p>
+                            <p>🤖 <strong>NEW:</strong> BizSpec Translator公開 - AI技術仕様変換ツール</p>
+                            <p>🐳 <strong>NEW:</strong> 2ndstreet Monitor - JavaScript + Docker実装完了</p>
+                            <p>🚀 <strong>Running:</strong> 43サイト24時間365日監視システム（2024年稼働率99.9%）</p>
+                            <p>📚 <strong>Learning:</strong> AWS Lambda, Serverless, Go (次の短期間キャッチアップ対象)</p>
+                            <p>💼 <strong>Seeking:</strong> フリーランス案件（Python開発 / サーバーレス / テスト自動化）</p>
+                            <p>💰 <strong>Target:</strong> 月80-100万円 / フルリモート</p>
+                            <p>🎯 <strong>Passion:</strong> 「楽しいから学ぶ」が原動力。技術で課題解決する喜びを分かち合える環境を求めています。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 glass rounded-xl">
+                        <h3 class="text-lg font-bold mb-3 text-yellow-400">💡 こんな方とお話ししたいです</h3>
+                        <div class="text-sm opacity-90 space-y-2">
+                            <p>✅ 「営業とエンジニアの橋渡し」ができる人材を探している</p>
+                            <p>✅ 技術だけでなく、ビジネス価値を語れるエンジニアが欲しい</p>
+                            <p>✅ AI時代の新しい開発スタイルに興味がある</p>
+                            <p>✅ 「楽しんで仕事をする人」と一緒に働きたい</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="py-8 border-t border-cyan-400 border-opacity-20">
+        <div class="container mx-auto px-6 text-center opacity-75">
+            <p>&copy; 2025 rancorder. All rights reserved.</p>
+            <p class="mt-2 text-sm">Built with ❤️ and passion | "楽しさ"が全ての始まり</p>
+        </div>
+    </footer>
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+    
+    <!-- GAFAM SRE級エフェクトシステム -->
+    <script>
+        'use strict';
+        
+        /**
+         * GAFAM SRE級エフェクトマネージャー
+         * Production Ready - 60fps保証
+         */
+        class PortfolioEffectsManager {
+            constructor() {
+                this.config = {
+                    particleCount: this.getOptimalParticleCount(),
+                    reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+                    maxFPS: 60
+                };
+                
+                this.metrics = {
+                    fps: 60,
+                    frameCount: 0,
+                    lastTime: performance.now()
+                };
+                
+                this.effects = new Map();
+                this.animationFrameId = null;
+                
+                console.log('%c🚀 GAFAM SRE級エフェクト起動', 'color: #00F5FF; font-size: 16px; font-weight: bold');
+            }
+            
+            getOptimalParticleCount() {
+                const deviceMemory = navigator.deviceMemory || 4;
+                if (deviceMemory < 2) return 30;
+                if (deviceMemory < 4) return 50;
+                return 80;
+            }
+            
+            async init() {
+                if (this.config.reducedMotion) {
+                    console.log('⚡ Reduced motion enabled');
+                    return;
+                }
+                
+                try {
+                    await Promise.all([
+                        this.initMouseGlow(),
+                        this.initParticles(),
+                        this.init3DCards(),
+                        this.initRippleEffect(),
+                        this.initScrollProgress(),
+                        this.initMouseTrail(),
+                        this.initFireworks()
+                    ]);
+                    
+                    console.log('%c✨ エフェクト初期化完了', 'color: #00F5FF');
+                } catch (error) {
+                    console.error('エフェクト初期化エラー:', error);
+                }
+            }
+            
+            initMouseGlow() {
+                const glow = document.createElement('div');
+                glow.setAttribute('aria-hidden', 'true');
+                glow.style.cssText = `
+                    position: fixed;
+                    width: 600px;
+                    height: 600px;
+                    background: radial-gradient(circle, rgba(0,245,255,0.15) 0%, transparent 70%);
+                    pointer-events: none;
+                    z-index: 99999;
+                    will-change: transform;
+                `;
+                document.body.appendChild(glow);
+                
+                document.addEventListener('mousemove', (e) => {
+                    requestAnimationFrame(() => {
+                        glow.style.transform = `translate(${e.clientX - 300}px, ${e.clientY - 300}px)`;
+                    });
+                }, { passive: true });
+            }
+            
+            initParticles() {
+                const canvas = document.createElement('canvas');
+                canvas.setAttribute('aria-hidden', 'true');
+                canvas.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 0;
+                    pointer-events: none;
+                `;
+                document.body.insertBefore(canvas, document.body.firstChild);
+                
+                const ctx = canvas.getContext('2d', { alpha: true });
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                
+                const particles = [];
+                for (let i = 0; i < this.config.particleCount; i++) {
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        vx: (Math.random() - 0.5) * 0.8,
+                        vy: (Math.random() - 0.5) * 0.8,
+                        radius: Math.random() * 2 + 1
+                    });
+                }
+                
+                const animate = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    particles.forEach((p, i) => {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        
+                        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                        
+                        particles.forEach((p2, j) => {
+                            if (i < j) {
+                                const dx = p.x - p2.x;
+                                const dy = p.y - p2.y;
+                                const distSq = dx * dx + dy * dy;
+                                
+                                if (distSq < 22500) {
+                                    const distance = Math.sqrt(distSq);
+                                    ctx.strokeStyle = `rgba(0, 245, 255, ${(1 - distance / 150) * 0.15})`;
+                                    ctx.lineWidth = 1;
+                                    ctx.beginPath();
+                                    ctx.moveTo(p.x, p.y);
+                                    ctx.lineTo(p2.x, p2.y);
+                                    ctx.stroke();
+                                }
+                            }
+                        });
+                        
+                        ctx.fillStyle = 'rgba(0, 245, 255, 0.5)';
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                        ctx.fill();
+                    });
+                    
+                    this.metrics.frameCount++;
+                    this.animationFrameId = requestAnimationFrame(animate);
+                };
+                
+                animate();
+                
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        canvas.width = window.innerWidth;
+                        canvas.height = window.innerHeight;
+                    }, 250);
+                }, { passive: true });
+            }
+            
+            init3DCards() {
+                const cards = document.querySelectorAll('.project-card, .glass, .stat-card, .featured-project');
+                cards.forEach(card => {
+                    card.style.transition = 'transform 0.1s ease-out';
+                    card.style.willChange = 'transform';
+                    
+                    card.addEventListener('mousemove', (e) => {
+                        requestAnimationFrame(() => {
+                            const rect = card.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const y = e.clientY - rect.top;
+                            const centerX = rect.width / 2;
+                            const centerY = rect.height / 2;
+                            const rotateX = ((y - centerY) / 15).toFixed(2);
+                            const rotateY = ((centerX - x) / 15).toFixed(2);
+                            
+                            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                        });
+                    }, { passive: true });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = '';
+                    }, { passive: true });
+                });
+            }
+            
+            initRippleEffect() {
+                document.addEventListener('click', (e) => {
+                    requestAnimationFrame(() => {
+                        const ripple = document.createElement('div');
+                        ripple.setAttribute('aria-hidden', 'true');
+                        ripple.style.cssText = `
+                            position: fixed;
+                            left: ${e.clientX}px;
+                            top: ${e.clientY}px;
+                            width: 0;
+                            height: 0;
+                            border-radius: 50%;
+                            background: rgba(0, 245, 255, 0.4);
+                            transform: translate(-50%, -50%);
+                            pointer-events: none;
+                            z-index: 99999;
+                        `;
+                        document.body.appendChild(ripple);
+                        
+                        const animation = ripple.animate([
+                            { width: '0px', height: '0px', opacity: 1 },
+                            { width: '400px', height: '400px', opacity: 0 }
+                        ], { duration: 500, easing: 'ease-out' });
+                        
+                        animation.onfinish = () => ripple.remove();
+                    });
+                }, { passive: true });
+            }
+            
+            initScrollProgress() {
+                const progress = document.createElement('div');
+                progress.setAttribute('role', 'progressbar');
+                progress.setAttribute('aria-label', 'Scroll progress');
+                progress.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    height: 3px;
+                    background: linear-gradient(90deg, var(--primary), var(--secondary));
+                    z-index: 999999;
+                    width: 0%;
+                    will-change: width;
+                `;
+                document.body.appendChild(progress);
+                
+                window.addEventListener('scroll', () => {
+                    requestAnimationFrame(() => {
+                        const scrollTop = window.pageYOffset;
+                        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                        const scrollPercent = Math.min(100, (scrollTop / scrollHeight) * 100);
+                        progress.style.width = scrollPercent + '%';
+                    });
+                }, { passive: true });
+            }
+            
+            initMouseTrail() {
+                let lastX = 0, lastY = 0, trailTimeout;
+                
+                document.addEventListener('mousemove', (e) => {
+                    if (Math.abs(e.clientX - lastX) > 15 || Math.abs(e.clientY - lastY) > 15) {
+                        clearTimeout(trailTimeout);
+                        trailTimeout = setTimeout(() => {
+                            requestAnimationFrame(() => {
+                                const trail = document.createElement('div');
+                                trail.setAttribute('aria-hidden', 'true');
+                                trail.style.cssText = `
+                                    position: fixed;
+                                    left: ${e.clientX}px;
+                                    top: ${e.clientY}px;
+                                    width: 4px;
+                                    height: 4px;
+                                    background: var(--primary);
+                                    border-radius: 50%;
+                                    pointer-events: none;
+                                    z-index: 99998;
+                                    box-shadow: 0 0 8px var(--primary);
+                                `;
+                                document.body.appendChild(trail);
+                                
+                                const animation = trail.animate([
+                                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 0.7 },
+                                    { transform: 'translate(-50%, -25px) scale(0)', opacity: 0 }
+                                ], { duration: 800, easing: 'ease-out' });
+                                
+                                animation.onfinish = () => trail.remove();
+                            });
+                        }, 40);
+                        
+                        lastX = e.clientX;
+                        lastY = e.clientY;
+                    }
+                }, { passive: true });
+            }
+            
+            initFireworks() {
+                const cards = document.querySelectorAll('.project-card, .featured-project');
+                cards.forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = rect.left + rect.width / 2;
+                        const y = rect.top + rect.height / 2;
+                        const colors = ['var(--primary)', 'var(--secondary)', 'var(--accent)'];
+                        
+                        requestAnimationFrame(() => {
+                            for (let i = 0; i < 25; i++) {
+                                const particle = document.createElement('div');
+                                particle.setAttribute('aria-hidden', 'true');
+                                const angle = (Math.PI * 2 * i) / 25;
+                                const velocity = 80 + Math.random() * 80;
+                                const tx = Math.cos(angle) * velocity;
+                                const ty = Math.sin(angle) * velocity;
+                                
+                                particle.style.cssText = `
+                                    position: fixed;
+                                    left: ${x}px;
+                                    top: ${y}px;
+                                    width: 5px;
+                                    height: 5px;
+                                    background: ${colors[i % 3]};
+                                    border-radius: 50%;
+                                    pointer-events: none;
+                                    z-index: 99999;
+                                `;
+                                document.body.appendChild(particle);
+                                
+                                const animation = particle.animate([
+                                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+                                    { transform: `translate(${tx}px, ${ty}px) scale(0)`, opacity: 0 }
+                                ], { duration: 800 + Math.random() * 400, easing: 'ease-out' });
+                                
+                                animation.onfinish = () => particle.remove();
+                            }
+                        });
+                    });
+                });
+            }
+        }
+        
+        // 初期化
+        const portfolioEffects = new PortfolioEffectsManager();
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => portfolioEffects.init());
+        } else {
+            portfolioEffects.init();
+        }
+    </script>
+</body>
+</html>

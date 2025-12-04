@@ -1,0 +1,172 @@
+version: '3.8'
+
+services:
+  # FastAPI Application
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/testdb
+      - ENVIRONMENT=production
+    depends_on:
+      - redis
+      - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - app-network
+
+  # Redis
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - app-network
+
+  # PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=testdb
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - app-network
+
+  # Toxiproxy (Network障害注入)
+  toxiproxy:
+    image: ghcr.io/shopify/toxiproxy:latest
+    ports:
+      - "8474:8474"  # API
+      - "6380:6380"  # Redis Proxy
+      - "5433:5433"  # Postgres Proxy
+    networks:
+      - app-network
+
+  # k6 Load Testing
+  k6:
+    build:
+      context: ./k6
+      dockerfile: Dockerfile
+    depends_on:
+      - app
+    volumes:
+      - ./k6/scripts:/scripts
+      - ./k6/results:/results
+    networks:
+      - app-network
+    profiles:
+      - testing
+
+  # Locust Load Testing
+  locust:
+    build:
+      context: ./locust
+      dockerfile: Dockerfile
+    ports:
+      - "8089:8089"
+    depends_on:
+      - app
+    volumes:
+      - ./locust/scripts:/locust
+    environment:
+      - TARGET_HOST=http://app:8000
+    networks:
+      - app-network
+    profiles:
+      - testing
+
+  # Pytest Concurrency Tests
+  pytest:
+    build:
+      context: ./pytest-concurrency
+      dockerfile: Dockerfile
+    depends_on:
+      - app
+      - redis
+      - postgres
+    environment:
+      - APP_URL=http://app:8000
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/testdb
+    volumes:
+      - ./pytest-concurrency/tests:/tests
+      - ./pytest-concurrency/results:/results
+    networks:
+      - app-network
+    profiles:
+      - testing
+
+  # Chaos Toolkit
+  chaos:
+    build:
+      context: ./chaos-tests
+      dockerfile: Dockerfile
+    depends_on:
+      - app
+      - toxiproxy
+    volumes:
+      - ./chaos-tests/scenarios:/scenarios
+      - ./chaos-tests/results:/results
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - app-network
+    profiles:
+      - testing
+
+  # Grafana Dashboard
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - ./dashboard/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./dashboard/grafana/datasources:/etc/grafana/provisioning/datasources
+      - grafana-data:/var/lib/grafana
+    networks:
+      - app-network
+
+  # Prometheus (Metrics)
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./dashboard/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  grafana-data:
+  prometheus-data:
