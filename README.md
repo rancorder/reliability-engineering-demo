@@ -191,7 +191,17 @@ docker-compose run --rm k6 run /scripts/spike.js
 | Grafana | http://localhost:3000 | admin / admin |
 | Prometheus | http://localhost:9090 | - |
 
-![Load Test Running](https://raw.githubusercontent.com/rancorder/reliability-engineering-demo/main/load-test-running.png)
+---
+
+## 📸 スクリーンショット
+
+### 負荷テスト実行中
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/rancorder/reliability-engineering-demo/main/load-test-running.png" width="90%">
+</p>
+
+*図: k6による100VUs負荷試験実行中のリアルタイム表示 - 13,060リクエストをエラー率0%で処理*
 
 
 ---
