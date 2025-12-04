@@ -191,7 +191,7 @@ docker-compose run --rm k6 run /scripts/spike.js
 | Grafana | http://localhost:3000 | admin / admin |
 | Prometheus | http://localhost:9090 | - |
 
-https://github.com/rancorder/reliability-engineering-demo/blob/main/load-test-running.png
+![Load Test Running](https://raw.githubusercontent.com/rancorder/reliability-engineering-demo/main/load-test-running.png)
 
 
 ---
